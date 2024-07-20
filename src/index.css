@@ -1,0 +1,91 @@
+a {
+    text-decoration: none !important;
+}
+
+.popOver {
+    background-color: rgb(251, 255, 248) !important;
+    width: 100vw;
+}
+
+.popHead {
+    font-weight: bold;
+    font-size: 15px;
+
+}
+.service {
+    background-color: #f8f8f8;
+}
+
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .imgScroll {
+    max-width: 150px;
+    height:  8rem;
+    padding: 20px;
+    object-fit: contain;
+  }
+  
+  .imgScroll:last-of-type {
+    padding-left: 0;
+  }
+  
+  .inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 8rem;
+  }
+  
+  .wrapper {
+    position: absolute;
+    display: flex;
+  }
+  
+  .sectionScroll {
+    display: flex;
+    animation: swipe var(--speed) linear infinite backwards;
+  }
+  .animateMe {
+    animation: popUp 2s ease-in-out infinite alternate-reverse;
+  }
+
+ 
+  @keyframes popUp {
+    0%{
+        transform: translateY(-100);
+    }
+    100%{
+        transform: translateY(0);
+    }
+  }
+  @keyframes swipe {
+    0% {
+      transform: translate(0);
+    }
+  
+    100% {
+      transform: translate(-100%);
+    }
+  }
+  
+  .bannerImage {
+    background:  url("./assets/services/banner2.jpg");
+  }
+  .footerBtn {
+    min-height: 50px;
+    width: 150px;
+    background-color: black;
+    color: white;
+    border: 3px solid white;
+    border-radius: 10px;
+    transition: all 1.5s;
+  }
+  .footerBtn:hover{
+    background-color: blue;
+  }
+  .container {
+    background-color: inherit !important;
+  }
