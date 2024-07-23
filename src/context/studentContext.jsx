@@ -8,7 +8,6 @@ const StudentContext = createContext()
 
 const  loadDetails = async (setData, student, setLoading, setAuth, redirect) => {
     let userToken = getToken(token.studentTokenKey)
-    console.log("loading data")
     if(student.name) {
         setLoading(false)
         return true

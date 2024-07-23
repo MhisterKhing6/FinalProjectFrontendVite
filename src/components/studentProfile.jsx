@@ -19,7 +19,7 @@ const StudentProfile = ({show, close}) => {
     let [loadSet, setLoading] = useState(false)
     let [showToast, setShowToast] = useState(false)
 
-    const [uploadData, setUploadData] = useState({"name":"", "profilePic":"", "githubUsername":"", "fileName":""})
+    const [uploadData, setUploadData] = useState({"name":"", "profilePic":"", "githubUserName":"", "fileName":""})
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -101,16 +101,16 @@ const StudentProfile = ({show, close}) => {
                     <FloatingLabel className="mb-2 w-100" label="Github UserName*" size={"sm"}>
                         <Form.Control 
                         onChange={(val) => {
-                            setStudent({...student, githubUsername:val.target.value})
-                            setUploadData({...uploadData, githubUsername:val.target.value})
+                            setStudent({...student, githubUserName:val.target.value})
+                            setUploadData({...uploadData, githubUserName:val.target.value})
                             setdisButton(false)
 
                          }
                         }
-                        value={student.githubUsername} size="sm" type="text" placeholder=" " />
+                        value={student.githubUserName} size="sm" type="text" placeholder=" " />
                     </FloatingLabel>
                     <div className="mx-auto">
-                    <Button type="submit" disabled={!spinner && disableButton} className="w-50 parent" size="lg" variant="success">Update</Button>
+                    <Button type="submit" disabled={!spinner && disableButton} className="w-50 parent" size="lg" variant="dark">Update</Button>
                     {spinner && <Spinner style={{left:"23%"}} variant="light" className="p-1 child" /> }
                     </div>
                     </Modal.Body>

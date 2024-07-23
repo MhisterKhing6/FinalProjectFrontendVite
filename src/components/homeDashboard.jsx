@@ -44,38 +44,6 @@ const HomeDashboard = () => {
             </Stack>
         </Button>)
            })}
-          {/* <Button href="" className="w-100 bg-transparent text-black border-0">
-                    <Stack  className="mb-3 shadow-lg p-2">
-                        <Stack className="justify-content-between" direction="horizontal">
-                            <h5 className="assTitle">Introduction to Java</h5> 
-                            <Badge bg="success" style={{fontSize:"18px"}}>99%</Badge>
-                        </Stack>
-                        <Stack  direction="horizontal" className="my-2">
-                            <div className="m-1 mx-2">
-                            <Badge>12/32/98</Badge>
-                            </div>
-                            <div className="m-1">
-                            <Badge bg="danger">12/38/2023</Badge>
-                            </div>
-                        </Stack>
-                    </Stack>
-                </Button>
-                <Button href="" className="w-100 bg-transparent text-black border-0">
-                    <Stack  className="mb-3 shadow-lg p-2">
-                        <Stack className="justify-content-between" direction="horizontal">
-                            <h5 className="assTitle">Introduction</h5> 
-                            <Badge bg="success" style={{fontSize:"18px"}}>99%</Badge>
-                        </Stack>
-                        <Stack  direction="horizontal" className="my-2">
-                            <div className="m-1 mx-2">
-                            <Badge>7/06/2021</Badge>
-                            </div>
-                            <div className="m-1">
-                            <Badge bg="danger">12/38/2023</Badge>
-                            </div>
-                        </Stack>
-                    </Stack>
-                </Button> */}
                 </div>
 
             <div className="shadow-lg my-2 bg-opacity-10 p-md-2">

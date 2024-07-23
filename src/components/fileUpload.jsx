@@ -15,6 +15,7 @@ const SolutionUpload = ({extension,files, setFiles, show,handleClose, solunFiles
                 //handle situation where all files are cleared
                 if(val.length === 0) {
                     setFiles([])
+                    setSolunFiles([])
                 }
                 let found = false
                 for(let i = 0; i < val.length; i++) {

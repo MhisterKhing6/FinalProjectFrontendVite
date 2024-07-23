@@ -45,7 +45,7 @@ const AssDescription = ({assId}) => {
              </Card>
              <h3 className="subHeading my-2 p-1">Questions</h3>
              {ass.tasks.length === 0 ? <h3>No Questions Loaded</h3> : ass.tasks.map((val) => {
-                return (<Question setAssignmentMark={setAssignmentMark} extension={ass.Compiler.extension} gitMode={ass.gitMode} val={val} />)
+                return (<Question key={val.id} setAssignmentMark={setAssignmentMark} extension={ass.Compiler.extension} repo={ass.repository} gitMode={ass.gitMode} val={val} />)
              })}
             </div>
                 }

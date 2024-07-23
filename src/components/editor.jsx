@@ -82,7 +82,7 @@ import { PopOverRename, PopOverSave } from "./popOver";
          return ( 
             <>
             <Modal backdrop="static"  onHide={onHide} size="lg" show={show}>
-            <AlertToast show={showInfo} text={infoMessage} />
+            <AlertToast show={showInfo} text={infoMessage} toggleShow={(val) => {setShowInfo(false)}} />
             <Modal.Header  closeButton className="bg-body-secondary text-white" style={{minHeight:"10vh"}}>
             <Stack  direction="horizontal" className="w-100 justify-content-around">
             
@@ -105,13 +105,13 @@ import { PopOverRename, PopOverSave } from "./popOver";
                 }
                 }
                     } variant="outline-dark" style={{width:"20%"}}>
-                <MdSave />
+                <MdSave /> <span className="mx-2 navDes">Save</span>
              </Button>
              <PopOverSave handleClick={saveNewFile} show={showSave} onHide={()=> setShowSave(false)} />
             <Button onClick ={(val) => {
                 setShowSave(true)
-            }} variant="outline-dark" style={{width:"20%"}}><MdNewLabel /></Button>
-            <Button onClick={() => setTheme(!theme)} variant="outline-dark" className="p-1" style={{width:"20%"}}><IoMdEye /></Button>
+            }} variant="outline-dark" style={{width:"20%"}}><MdNewLabel /><span className="mx-2 navDes">New</span></Button>
+            <Button onClick={() => setTheme(!theme)} variant="outline-dark" className="p-1" style={{width:"20%"}}><IoMdEye /><span className="mx-2 navDes">Theme</span></Button>
             
             <Button onClick={()=> setCoding("")} primary="outline-dark" style={{width:"20%"}} className="bg-dark">Clear</Button>
             </Stack>
@@ -142,7 +142,7 @@ import { PopOverRename, PopOverSave } from "./popOver";
                             }
                             </Form.Select>
                             {fileName && <>
-                            <Button  onClick= {() => showRename(true)} variant="outline-dark" style={{width:"20%"}} className="mx-2 p-2"><BiRename /></Button>
+                            <Button  onClick= {() => showRename(true)} variant="outline-dark" style={{width:"20%"}} className="mx-2 p-2"><span className="navDes mx-2">Rename</span><BiRename /></Button>
                             <PopOverRename show={rename} handleClick={renameFile} onHide={() => showRename(false)} />
                             <Button onClick={deleteFile} variant="outline-danger" style={{width:"20%"}} className="mx-2 p-2"><MdDelete /></Button>
                             </>

@@ -109,6 +109,58 @@ button {
 .hasc {
   display: none !important;
 }
+
+.userProfile{
+  background-image: linear-gradient(to left top, #60efff, #00d3ff, #00b4ff, #008fff, #0061ff);
+}
+.dashboardElem {
+  height: 250px;
+  background-color: rgb(190, 190, 212); 
+}
+.spinerGrow {
+  height: 5rem;
+  width: 5rem;
+  color: rgb(67, 143, 242)
+}
+.avatar {
+  border: none !important;
+  box-shadow: none!important;
+  background-color: inherit !important;
+  color: black !important;
+
+}
+
+.navList > .nav-link {
+  font-size: 1rem !important;
+  transition: 0.5s;
+  text-align: center;
+  width: 5rem !important;
+}
+.navList > .nav-link:hover{
+  color: white;
+  letter-spacing: 2px;
+  background-color: #0d6efd;
+  box-shadow: 2px 3px 3px 2px rgb(233, 220, 220);
+}
+.logoImg {
+  background-image: url("./assets/nobg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.dashboardElem:hover {
+  box-shadow: none !important;
+  border: 1px solid rgb(100, 194, 225);
+  background-color: rgba(5, 74, 110, 0.285) !important;
+
+}
+
+.dashboardElem:hover {
+  box-shadow: none !important;
+  border: 1px solid rgb(100, 194, 225);
+  background-color: rgba(5, 74, 110, 0.285) !important;
+
+}
 @media (max-width: 768px) {
   .hasc {
     display: inline;

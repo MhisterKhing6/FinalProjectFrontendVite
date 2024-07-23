@@ -13,7 +13,7 @@ import { ReqResult } from "./reqResult"
 import { SubmitSolution } from "./submitSolution"
 import { TestResult } from "./testResult"
 
-const Question = ({val, gitMode, extension, setAssignmentMark})=> {
+const Question = ({repo,val, gitMode, extension, setAssignmentMark})=> {
     const [files, setFiles] = useState([]) //handles file ui
     
     const [solunFiles, setSolunFiles] = useState([]) //handles solun files
@@ -46,23 +46,22 @@ const Question = ({val, gitMode, extension, setAssignmentMark})=> {
     const handleUploadClose = () => setUploadShow(false)
 
     const handleSubmitClose  = () => handleSubmitShow(false)
-
     const handleSubmit = async () => {
-        if(solunFiles.length === 0)
+        if(!gitMode && solunFiles.length === 0)
             {
                 setShowInfo(true)
                 setInfoMessage("No files uploaded")
             }else {
                 setLoading(true)
                 //form submission data
-                let subObject = {codes:solunFiles, taskId:val.id}
-                let url = '/coder/student/submit/task/file'
+                let subObject = gitMode ? {taskId: val.id} : {codes:solunFiles, taskId:val.id}
+                let url = !gitMode ? '/coder/student/submit/task/file' : '/coder/student/submit/task/github'
                 let result = await postToBackend(url, subObject, getToken(token.studentTokenKey))
                 if(result.status === 400) {
                     setCompilError(true)
                     setCompilErrorMessage(result.data.message)
                 }else if(result.status === 200) {
-                    setCompilError(false)                  
+                    setCompilError(false)
                     if(result.data.lesserThanPrevMark) {
                         setInfoMessage("Mark is lesser  than previous, so previous mark will be used")
                         setShowInfo(true)
@@ -92,25 +91,27 @@ const Question = ({val, gitMode, extension, setAssignmentMark})=> {
         <Card.Header className="mb-2">
             <Stack direction="horizontal" className="justify-content-between">
                 <h4> {val.number} </h4> 
-                <h3><Badge>{val.TaskResults ?  val.TaskResults.mark : 0}</Badge></h3>
+                <h3><Badge>{val.TaskResults ? taskMark ||  val.TaskResults.mark : 0}</Badge></h3>
             </Stack>
             </Card.Header>
-        <p>
+     
             <ul>
                 {val.requirement.split("\n").map((line, id) => <li key={id}>{line} </li>) }
             </ul>
-        </p>
         <div className="my-2">
             <EditorReadOnly extension code = {val.examples} className="shadow-lg my-3<" />
         </div>
-        <h4 className="my-2">
-         Paths
-        </h4>
+        <hr />
+        <h6 className="my-2">
+         Submission Mode: {gitMode ? "Github Submission" : "File Upload"}
+        </h6>
+        {gitMode ? <h6>Github Repo: {repo} </h6> :"" }
         <ul>
             {val.studentSolutionFileNames.split("**").map(path => {
                 return ( <li key={path}>{path}</li> )
             }) }
         </ul>
+        <hr />
         {viewTest && <Card.Footer>
             <Row> { compileError ?  <TestResult error={true} feedback={errorMessage} /> :<>
             {taskResults.map((task) => {
@@ -144,7 +145,7 @@ const Question = ({val, gitMode, extension, setAssignmentMark})=> {
             <Col xs={6} md={3} lg={2} className="my-1">
             <Button onClick={() => {
                 if(gitMode) {
-                    alert("Submit Val id")
+                    handleSubmit()
                 } else {
                     handleSubmitShow(true)
                 }

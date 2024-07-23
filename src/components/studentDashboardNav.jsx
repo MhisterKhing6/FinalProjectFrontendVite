@@ -7,13 +7,15 @@ import profile from "../assets/prfileAvatar.png"
 import { StudentContext } from "../context/studentContext"
 import { logout } from "../utils/localstorage"
 import { StudentProfile } from "./studentProfile"
+import { useNavigate } from "react-router-dom"
 
-const StudentDashboardNav = ({scores, home, ass, setHome, setScores, setAss}) => {
+const StudentDashboardNav = ({r, scores, home, ass, setHome, setScores, setAss}) => {
     const homeRef = useRef(null)
     const scoreRef = useRef(null)
     const assignmentRef = useRef(null)
     const recordRef = useRef(null)
     const [showProfile, showModal] = useState(false)
+    const redirect = useNavigate()
     const {student, authenticated, setAuthenticated} = useContext(StudentContext)
     return (
         <>
@@ -32,12 +34,16 @@ const StudentDashboardNav = ({scores, home, ass, setHome, setScores, setAss}) =>
                 <Dropdown.Item style={{fontSize:"20px"}} className="d-flex justify-center align-items-center" onClick={()=> {
                     logout("student")
                     setAuthenticated(false)
-                    console.log(authenticated)
+                    redirect('/auth/login/student')
                 }}><FaSignOutAlt  className="mx-2"/> Log Out</Dropdown.Item>
 
             </Dropdown.Menu>
             </Dropdown>
             <Stack onClick={() => {
+                if(r)
+                    redirect("/student/dashboard", {state: {r:'h'}})
+                    //redirect to dasboard with state for updating
+            else 
                 if(!home) {
                     recordRef.current.classList.remove("bg-light")
                     recordRef.current.classList.remove("text-dark")
@@ -57,7 +63,9 @@ const StudentDashboardNav = ({scores, home, ass, setHome, setScores, setAss}) =>
             </Stack>
 
              <Stack onClick={ () => {
-                
+                    if(r)
+                        redirect('/student/dashboard', {state:{r:'a'}})
+                    else {
                     homeRef.current.classList.remove("bg-light")
                     homeRef.current.classList.remove("text-dark")
                     scoreRef.current.classList.remove("bg-light")
@@ -69,7 +77,7 @@ const StudentDashboardNav = ({scores, home, ass, setHome, setScores, setAss}) =>
                     setHome(false)
                     setScores(false)
                     setAss(true)
-                
+                    }
                 }
                 
             } ref={assignmentRef} direction="horizontal" className="dashStyle ms-md-4 w-90 p-2 my-1 ">
@@ -78,6 +86,9 @@ const StudentDashboardNav = ({scores, home, ass, setHome, setScores, setAss}) =>
             </Stack> 
 
             <Stack onClick={() => {
+                if(r)
+                    redirect("/student/dashboard", {state: {r:'s'}})
+                else {
                 homeRef.current.classList.remove("bg-light")
                 homeRef.current.classList.remove("text-dark")
                 assignmentRef.current.classList.remove("bg-light")
@@ -89,13 +100,16 @@ const StudentDashboardNav = ({scores, home, ass, setHome, setScores, setAss}) =>
                 setAss(false)
                 setHome(false)
                 setScores(true)
-                
+                }
             }} ref={scoreRef} direction="horizontal" className="dashStyle ms-md-4 w-90 p-2 my-1 ">
              <h2 className="mx-2"> <CiViewBoard/> </h2>
                 <div className="navDes">Scores </div>
             </Stack> 
 
             <Stack onClick={() => {
+                if(r)
+                    redirect('/student/dashboard', {state: {r:'r'}})
+                else {
                  homeRef.current.classList.remove("bg-light")
                  homeRef.current.classList.remove("text-dark")
                  assignmentRef.current.classList.remove("bg-light")
@@ -104,6 +118,7 @@ const StudentDashboardNav = ({scores, home, ass, setHome, setScores, setAss}) =>
                  scoreRef.current.classList.remove("text-dark")
                  recordRef.current.classList.add("bg-light")
                  recordRef.current.classList.add("text-dark")
+                }
             }} ref={recordRef} direction="horizontal" className="dashStyle ms-md-4 w-90 p-2 my-1 ">
              <h2 className="mx-2"> <FaHistory/> </h2>
                 <div className="navDes">Records</div>

@@ -86,7 +86,7 @@ const PopOverSave = ({handleClick, show, onHide}) => {
         <Modal size="sm" show={show} onHide={onHide}>
             
             <Form className="p-3">
-                <Form.Label style={{fontSize:"16px"}}>'File Name</Form.Label>
+                <Form.Label style={{fontSize:"16px"}}>File Name</Form.Label>
                 <Form.Control
                 value={fileName}
                 onChange={(val) => {
@@ -100,7 +100,7 @@ const PopOverSave = ({handleClick, show, onHide}) => {
                     handleClick(fileName)
                     onHide()
                 }}
-            >'save'</Button>
+            >save</Button>
             </Form>
             
         </Modal>

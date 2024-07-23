@@ -1,11 +1,12 @@
 import { useContext, useState } from "react"
-import { Button, Container, Form, Spinner } from "react-bootstrap"
+import { Button, Container, Form, Image, Spinner } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
+import logo from "../assets/logo-color.png"
 import { AlertToast } from "../components/alertTracker"
 import { FgPwdModal } from "../components/forgetPassworModal"
 import { GeneralNavbar } from "../components/headerLanding"
 import { VerificationContext } from "../context/verificationContext"
 import { postToBackend } from "../utils/backendCalls"
-import { useNavigate } from "react-router-dom"
 import { token } from "../utils/config"
 import { saveToken } from "../utils/localstorage"
 
@@ -47,7 +48,11 @@ const LoginLecturer = () => {
         <GeneralNavbar  />
         <section className="py-5 px-2 hv-100">
         <Container  className="p-4 shadow-lg rounded-3" style={{width:"400px"}}>
-                <h4 className="my-3 ">Login Lecturer</h4>
+                <div className="mb-2 d-flex justify-content-center">
+                <Image className="mx-auto" src={logo} width={80} height={50} />
+                </div>
+                <p className="text-center">Lecture Login</p>
+                <hr />
                 <Form onSubmit={handleSubmit}  className=" text-start border-2 parent  ">
                 <AlertToast show={showError} text={errorMessage} toggleShow={() => setError(false)} />
 
