@@ -3,7 +3,7 @@ import "./verfyemail.css";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 
-const CongratulationsAssignment = ({show, onHide, showQuestion}) => {
+const CongratulationsAssignment = ({show, onHide, showQuestion,another}) => {
     const redirect = useNavigate()
     return (
         <Modal show={show} onHide={onHide} backdrop="static">
@@ -15,8 +15,8 @@ const CongratulationsAssignment = ({show, onHide, showQuestion}) => {
                     <img style={{width: '300px', height: "250px "}} className="img-fluid" src={emailPic} alt="email" />
                 </div>
                 <article className="text-center">
-                    <h3 className=" text-primary lead my-1"><b>Assignment Saved </b> </h3>
-                    <p style={{fontSize: "25px"}}>Next add questions to assignment?</p>
+                    <h3 className=" text-primary lead my-1"><b>{!another ? 'Assignment Saved' : 'Question Saved'} </b> </h3>
+                    <p style={{fontSize: "25px"}}>{!another ? 'Next add questions to assignment?': 'Add another question?'}</p>
                 </article>
                 <button onClick={(e) => {
                     e.preventDefault()

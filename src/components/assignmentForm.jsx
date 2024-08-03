@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom"
 import { getFromBackend, postToBackend } from "../utils/backendCalls"
 import { convertToDateTimeLocalString, token } from "../utils/config"
 import { getToken } from "../utils/localstorage"
+import { AddAssQuestion } from "./addAssQuestion"
 import { AlertToast } from "./alertTracker"
 import { CongratulationsAssignment } from "./congratualationAss"
 import { Loading } from "./loading"
-import { AddAssQuestion } from "./addAssQuestion"
 
 
 
@@ -34,6 +34,8 @@ const AssignmentCreationForm = () => {
     const[comp, setComp] = useState("")
 
     const[question, showQuestion] = useState(false)
+
+    const[another, setAnother] = useState(false)
     
 
     const[uploadAssignment, setUploadAssignment] = useState(
@@ -112,8 +114,8 @@ const AssignmentCreationForm = () => {
     <Row className="justify-content-center">
     <Col className="overflow-hidden" lg={7}>
     <Container className="shadow-lg p-3">
-    <CongratulationsAssignment showQuestion={()=> {showQuestion(true)}} show={congrats} onHide={()=> {showCongrats(false)}} />
-    <AddAssQuestion show={question} compiler={comp} addQuestion={()=>{showCongrats(true)}} assId={assId} onHide={()=> showQuestion(false)}/>
+    <CongratulationsAssignment another={another} showQuestion={()=> {showQuestion(true)}} show={congrats} onHide={()=> {showCongrats(false)}} />
+    <AddAssQuestion newQuestion={setAnother} show={question} compiler={comp} addQuestion={()=>{showCongrats(true)}} assId={assId} onHide={()=> showQuestion(false)}/>
     {loading? <Loading /> : <>
         <h3 className="h3 text-center ">Create Assignment</h3>
         <hr className="mb-3"/>

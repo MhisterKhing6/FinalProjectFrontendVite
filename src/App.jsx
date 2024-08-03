@@ -2,10 +2,13 @@ import './App.css'
 
 
 import { Route, Routes } from 'react-router-dom'
+import { AddAssQuestion } from './components/addAssQuestion'
 import { SolutionUpload } from './components/fileUpload'
 import { StudentDashboardNav } from './components/studentDashboardNav'
 import { AssignmentCourse } from './pages/AssignmentCourse'
+import { ViewAssignment } from './pages/ViewAssignmentLecturer'
 import { AssignmentDescription } from './pages/assignmentDecriptionPage'
+import { CreateAssignment } from './pages/createAssignmentPage'
 import { LandingPage } from './pages/landingPage'
 import { LecturerDashboardPage } from './pages/lecturerDashboard'
 import { LoginLecturer } from './pages/lecturerLogin'
@@ -14,8 +17,7 @@ import { DashboardElement } from './pages/studentAssignments'
 import { StudentDashboard } from './pages/studentDashboard'
 import { LoginStudent } from './pages/studentLogin'
 import { StudentRegistrationPage } from './pages/studentRegistration'
-import { CreateAssignment } from './pages/createAssignmentPage'
-import { AddAssQuestion } from './components/addAssQuestion'
+import { AssignmentDetailPage } from './pages/viewAssignmentDetails'
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
       <Route path='/course/assignment/:cId' element= {<AssignmentCourse />} />
       <Route path='/create/assignment' element={<CreateAssignment />} />
       <Route path='/add/question' element={<AddAssQuestion />} />
+      <Route path='/lecturer/view-assignment' element={<ViewAssignment />} />
+      <Route path='/assignment-detail/:assId/:status' element={<AssignmentDetailPage />} />
       
     </Routes>
     </>

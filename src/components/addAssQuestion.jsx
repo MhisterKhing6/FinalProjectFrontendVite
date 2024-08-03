@@ -6,7 +6,7 @@ import { convertText } from '../utils/encodingFunctions'
 import { AlertToast } from './alertTracker'
 import { token } from '../utils/config'
 import { getToken } from '../utils/localstorage'
-const AddAssQuestion = ({compiler , assId, show, onHide, addQuestion}) => {
+const AddAssQuestion = ({compiler , assId, show, onHide, addQuestion, newQuestion}) => {
     const [uploadQuestion, setUploadQuestion] = useState({})
     const [fileD, setFileD] = useState(false)
     const [editorD, setEditorD] = useState(false)
@@ -41,7 +41,8 @@ const AddAssQuestion = ({compiler , assId, show, onHide, addQuestion}) => {
                         setShowInfo(true)
                         }      
                         else {
-
+                            setUploadQuestion({})
+                            
                             addQuestion()
                             onHide()
                         }
@@ -127,6 +128,7 @@ const AddAssQuestion = ({compiler , assId, show, onHide, addQuestion}) => {
                     onClick={(val) => { 
                         setFileS(!fileS)
                         setEditorS(false)
+                        newQuestion(true)
                     }}
                     checked={fileS}
                     name="subMode"/>
