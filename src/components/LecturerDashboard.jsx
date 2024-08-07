@@ -8,9 +8,9 @@ import { DashBoardElement } from "./dasboardElement";
 
 const LecturerDashboard = ()=> {
     let actions = [{url:"/lecturer/create/assignment", title: "Create Assignment", desc:"Design programming assignments to challenge students, enhance coding skills, and cultivate problem-solving abilities through hands-on practice and real-world scenarios.", "icon": <MdAssignmentAdd style={{fontSize: "3rem"}} />},
-                   {url: "#" , "title": "View Assignments", desc:"View created assignments effortlessly, ensuring clarity, coherence, and alignment with learning objectives for seamless instruction and assessment.", icon: <CiViewBoard style={{fontSize: "3rem"}} /> },
-                   {url:"#", "title": "Edit Assignment", desc: "Effortlessly modify existing assignments, tailoring content, adjusting parameters, and refining instructions to meet evolving educational needs with precision and ease.", icon: <CiEdit style={{fontSize: "3rem"}} />},
-                   {url:"#", "title": "Student Result", desc: "Easily review student assignment results in various formats, ensuring accessibility and facilitating comprehensive assessment and feedback for effective learning.",icon:<IoBarChart style={{fontSize: "3rem"}} />}]
+                   {url: "/lecturer/view-assignment" , "title": "View Assignments", desc:"View created assignments effortlessly, ensuring clarity, coherence, and alignment with learning objectives for seamless instruction and assessment.", icon: <CiViewBoard style={{fontSize: "3rem"}} /> },
+                   {url:"/lecturer/view-assignment", "title": "Edit Assignment", desc: "Effortlessly modify existing assignments, tailoring content, adjusting parameters, and refining instructions to meet evolving educational needs with precision and ease.", icon: <CiEdit style={{fontSize: "3rem"}} />},
+                   {url:"/lecturer/view-assignment", "title": "Student Result", desc: "Easily review student assignment results in various formats, ensuring accessibility and facilitating comprehensive assessment and feedback for effective learning.",icon:<IoBarChart style={{fontSize: "3rem"}} />}]
     
     return(
         <>
@@ -94,7 +94,7 @@ const LecturerDashboard = ()=> {
                              </div>
                              <div className="progress mt-1 mb-1">
                              <div className="bg-danger progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{width:'80%'}} aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>  
+                            </div>
                             </Card.Body>
                         </Card>
 

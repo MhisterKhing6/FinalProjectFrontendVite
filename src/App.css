@@ -161,6 +161,11 @@ button {
   background-color: rgba(5, 74, 110, 0.285) !important;
 
 }
+
+.stat:hover {
+  box-shadow: 3px 3px 2px 4px rgb(214, 202, 188) !important;
+  
+}
 @media (max-width: 768px) {
   .hasc {
     display: inline;

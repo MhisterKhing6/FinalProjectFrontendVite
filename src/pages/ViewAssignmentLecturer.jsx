@@ -74,13 +74,6 @@ const ViewAssignment = () => {
                 
             </Row>
 
-            <Row>
-
-            </Row>
-
-            <Row>
-
-            </Row>
         </Container>
         </div>
         </>

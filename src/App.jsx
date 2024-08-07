@@ -18,6 +18,8 @@ import { StudentDashboard } from './pages/studentDashboard'
 import { LoginStudent } from './pages/studentLogin'
 import { StudentRegistrationPage } from './pages/studentRegistration'
 import { AssignmentDetailPage } from './pages/viewAssignmentDetails'
+import { EditAssignment } from './pages/editAssignment'
+import { AssignmentReport } from './pages/AssignmentReportPage'
 
 function App() {
   return (
@@ -36,11 +38,12 @@ function App() {
       <Route path='/student/assignment' element= {<DashboardElement url={'/course/assignment/'} title={"Student Assignment"} />} />
       <Route path='/student/grades' element= {<DashboardElement title={"Student Grades"} />} />
       <Route path='/course/assignment/:cId' element= {<AssignmentCourse />} />
-      <Route path='/create/assignment' element={<CreateAssignment />} />
+      <Route path='/lecturer/create/assignment' element={<CreateAssignment />} />
       <Route path='/add/question' element={<AddAssQuestion />} />
       <Route path='/lecturer/view-assignment' element={<ViewAssignment />} />
       <Route path='/assignment-detail/:assId/:status' element={<AssignmentDetailPage />} />
-      
+      <Route path='/lecturer/edit-assignment/:assId' element = {<EditAssignment />} />
+      <Route path='/lecturer/report-assignment/:assId' element = {<AssignmentReport />} />
     </Routes>
     </>
   )

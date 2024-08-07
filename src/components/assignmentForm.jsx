@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Form, InputGroup, Row, Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
-import { getFromBackend, postToBackend } from "../utils/backendCalls"
+import { getFromBackend, postToBackend, putToBackend } from "../utils/backendCalls"
 import { convertToDateTimeLocalString, token } from "../utils/config"
 import { getToken } from "../utils/localstorage"
 import { AddAssQuestion } from "./addAssQuestion"
@@ -11,8 +11,8 @@ import { Loading } from "./loading"
 
 
 
-const AssignmentCreationForm = () => {
-    const [fileMode, setFileMode] = useState(false)
+const AssignmentCreationForm = ({ass}) => {
+    const [fileMode, setFileMode] = useState(ass ? !ass.gitMode : false)
     const [loading, setLoading] = useState(false)
     const [submitting, setSubmission] = useState (false)
     const [compilers, setCompilers] = useState([])
@@ -39,9 +39,14 @@ const AssignmentCreationForm = () => {
     
 
     const[uploadAssignment, setUploadAssignment] = useState(
-        {startDate:convertToDateTimeLocalString(new Date()),
-         endDate:convertToDateTimeLocalString(new Date())
-        })
+        {startDate: !ass ? convertToDateTimeLocalString(new Date()) : convertToDateTimeLocalString(new Date(ass.startDate)) ,
+         endDate:!ass ? convertToDateTimeLocalString(new Date()) : convertToDateTimeLocalString(new Date(ass.endDate))
+        ,title: !ass ? "" : ass.title, CourseId: ass ? ass.CourseId : "", ClassId: ass ? ass.ClassId :"",
+        CompilerId : ass ? ass.CompilerId : "", "objectives": ass ? ass.objectives : "",
+        "codingStandard": ass ? ass.codingStandard : "", gitMode: ass ? ass.gitMode : "",
+        "repository": ass ? ass.repository : "", "programId": ass ? ass.Classes[0].Program.id : "",
+        "CompilerId": ass ? ass.Compiler.id : ""
+    })
     const redirect = useNavigate()
     useEffect(()=> {
 
@@ -79,7 +84,7 @@ const AssignmentCreationForm = () => {
                         setShowInfo(true)
                     }
                     let legit = true
-                    if(!(uploadAssignment.ClassId && uploadAssignment.CourseId && uploadAssignment.ProgramId)){
+                    if((uploadAssignment.ClassId && uploadAssignment.CourseId && uploadAssignment.ProgramId)){
                         setInfoMessage("program, class and course are required")
                         setShowInfo(true)
                         legit = false
@@ -87,8 +92,11 @@ const AssignmentCreationForm = () => {
                     if(legit) {
                         //send assignment to backend
                         let url = "/coder/lecturer/assignment"
-                        let response = await postToBackend(url, uploadAssignment, getToken(token.lecturerTokenKey))
-                        if(response.status === 201){
+                        let updateData  = ass ?  {...uploadAssignment, id:ass.id} : ""
+                        let response = ass ? await putToBackend(url, updateData, getToken(token.lecturerTokenKey)): await postToBackend(url, uploadAssignment, getToken(token.lecturerTokenKey))
+                        let condition = ass ? response.status === 200 : response.status == 201
+                        console.log(response.data)
+                        if(condition){
                             //find the compiler with the id
                             let compiler = null
                             for(const lang of compilers) {
@@ -97,11 +105,14 @@ const AssignmentCreationForm = () => {
                                     break
                                 } 
                             }
+                            if(!ass)
                             setAssId(response.data.id)
                             setComp(compiler)
                             setSubmission(false)
+                            if(!ass)
                             showCongrats(true)
-                            //redirect("/lecturer/assingment/congrats", {state: {assId:response.data.id, compiler}})
+                            if(ass)
+                            redirect("/lecturer/view-assignment")
                         }
                         else {
                             setSubmission(false)
@@ -112,12 +123,12 @@ const AssignmentCreationForm = () => {
     }
     return(
     <Row className="justify-content-center">
-    <Col className="overflow-hidden" lg={7}>
+    <Col className="overflow-hidden">
     <Container className="shadow-lg p-3">
     <CongratulationsAssignment another={another} showQuestion={()=> {showQuestion(true)}} show={congrats} onHide={()=> {showCongrats(false)}} />
     <AddAssQuestion newQuestion={setAnother} show={question} compiler={comp} addQuestion={()=>{showCongrats(true)}} assId={assId} onHide={()=> showQuestion(false)}/>
     {loading? <Loading /> : <>
-        <h3 className="h3 text-center ">Create Assignment</h3>
+        <h3 className="h3 text-center ">{ass ? "": "Create Assignment"}</h3>
         <hr className="mb-3"/>
         
         <Form onSubmit={handleSubmit}>
@@ -148,7 +159,7 @@ const AssignmentCreationForm = () => {
                 setUploadAssignment({...uploadAssignment, CompilerId:val.target.value})
             }}
             required>
-                <option >Programming Language</option>
+                <option >{ass? ass.Compiler.name : "Programming Language"}</option>
                 {compilers.map(val => {
                                 return (<option key={val.id} value={val.id}>{val.name}</option>)
                             })
@@ -179,7 +190,7 @@ const AssignmentCreationForm = () => {
 
             }} 
             >
-                <option selected disabled hidden>Programme</option>
+                <option selected disabled hidden>{ass ? ass.Classes[0].Program.programName : "Programme" }</option>
                 {programs.map(val => {
                             return (<option key={val.id} value={val.id}>{val.programName}</option>)
                         })}
@@ -201,7 +212,7 @@ const AssignmentCreationForm = () => {
                 setLoadingCourse(false)
             }}  
             className="parent" disabled={disableB}>
-                <option selected disabled hidden>Class</option>
+                <option selected disabled hidden>{ass ? ass.Classes[0].className :"Class"}</option>
                 {classes.map(val => {
                                 return(<option key={val.id} value={val.id}>{val.className}</option>)
                 })}
@@ -213,7 +224,7 @@ const AssignmentCreationForm = () => {
             <Form.Select 
             onChange={val => {setUploadAssignment({...uploadAssignment, CourseId:val.target.value})}}
             className="parent mb-3" disabled={disableCourse}>
-                <option hidden selected disabled>Select Course</option>
+                <option hidden selected disabled>{ass ? ass.Course.courseName : "Select Course"}</option>
                 {courses.map(val => {
                                 return(<option key={val.id} value={val.id}>{val.courseCode}</option>)
                 })}
@@ -222,11 +233,13 @@ const AssignmentCreationForm = () => {
             <div className='mx-4 mb-2 px-4' style={{fontSize: "1.2rem"}}>
                         <Form.Check
                         label="Plagiarism"
+                        type="switch"
                         id= "pg"
                         checked = {uploadAssignment.plagiarism}
                         onChange={() => setUploadAssignment({...uploadAssignment, plagiarism:!uploadAssignment.plagiarism})}
                         />
                         <Form.Check
+                        type="switch"
                         label="Coding Standard"
                         id= "csc"
                         checked = {uploadAssignment.codingStandards}
@@ -239,6 +252,7 @@ const AssignmentCreationForm = () => {
                     
                         <Form.Check
                         label="Github"
+                        type="switch"
                         id= "gt"
                         style={{fontSize: "1.2rem"}}
                         inline
@@ -247,7 +261,6 @@ const AssignmentCreationForm = () => {
                             setUploadAssignment({...uploadAssignment, gitMode:!uploadAssignment.gitMode})
                             setFileMode(false)
                         }}
-                        type={"radio"}
                         checked={uploadAssignment.gitMode}
                         name="subMode"/>
 

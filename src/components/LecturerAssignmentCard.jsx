@@ -24,7 +24,7 @@ const PopAssignment = ({id, status}) => {
 
             <div className="align-items-center justify-content-start">
             <div>
-            <Button style={{textDecoration:"none"}} variant="link" className="mb-2 p-0 mt-0 text-muted"><span ><FaEdit className="me-3"  />Edit Assignment</span></Button>
+            <Button href={`/lecturer/edit-assignment/${id}`} style={{textDecoration:"none"}} variant="link" className="mb-2 p-0 mt-0 text-muted"><span ><FaEdit className="me-3"  />Edit Assignment</span></Button>
 
             </div>
             </div>
