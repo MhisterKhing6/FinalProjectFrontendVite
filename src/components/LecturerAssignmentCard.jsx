@@ -1,7 +1,7 @@
 import { Button, Card, Col, OverlayTrigger, Popover } from "react-bootstrap"
 import { BiCalendar } from "react-icons/bi"
 import { CgOptions } from "react-icons/cg"
-import { FaEdit, FaEye } from "react-icons/fa"
+import { FaChartBar, FaEdit, FaEye } from "react-icons/fa"
 import { FiDelete } from "react-icons/fi"
 import { LiaForumbee } from "react-icons/lia"
 import { MdScore } from "react-icons/md"
@@ -13,6 +13,12 @@ const PopAssignment = ({id, status}) => {
             <div className="align-items-center justify-content-start">
             <div>
              <Button href={`/assignment-detail/${id}/${status}`} style={{textDecoration:"none"}} variant="link" className="p-0 text-muted mb-2"><span ><FaEye  className="me-3" />View</span></Button>
+            </div>
+            </div>
+
+            <div className="align-items-center justify-content-start">
+            <div>
+            <Button href={`/lecturer/report-assignment/${id}`} style={{textDecoration:"none"}} variant="link" className="p-0 mt-0 text-muted mb-2"><span ><FaChartBar className="me-3" />Report </span></Button>
             </div>
             </div>
 

@@ -38,6 +38,7 @@
   background:transparent;
   transform-origin:left;
   animation:animate 2s linear infinite;
+  color:rgb(223, 68, 68)
 }
 .ringSpan:before
 {
