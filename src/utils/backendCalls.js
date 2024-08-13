@@ -81,6 +81,29 @@ catch(err) {
   
 }
 
+const delteFromBackend = async (apiEndpoint, token="") => {
+  /** 
+   * postToBackend: uses fetch to post data to backedn
+   */
+  let url = backend.url + apiEndpoint
+// Default options are marked with *
+try {
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Authorization": "Bearer " + token
+    }
+  });
+  return {data: await response.json(), status: response.status}
+}
+catch(err) {
+  console.log(err)
+  return {data: {"reason": "Network Error check ur internet"}, status: "errr"}
+}
+   ; // parses JSON response into native JavaScript objects
+  
+}
+
 //check if authenticatiedd
 
 const authenticated = async (type, bk) => {
@@ -100,4 +123,4 @@ const authenticated = async (type, bk) => {
     return null
   
 }
-export { authenticated, getFromBackend, postToBackend, putToBackend };
+export {delteFromBackend, authenticated, getFromBackend, postToBackend, putToBackend };

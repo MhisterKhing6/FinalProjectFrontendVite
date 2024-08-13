@@ -2,10 +2,10 @@ import { Dropzone, FileCard } from '@files-ui/react'
 import { useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { postToBackend } from '../utils/backendCalls'
-import { convertText } from '../utils/encodingFunctions'
-import { AlertToast } from './alertTracker'
 import { token } from '../utils/config'
+import { convertText } from '../utils/encodingFunctions'
 import { getToken } from '../utils/localstorage'
+import { AlertToast } from './alertTracker'
 const AddAssQuestion = ({compiler , assId, show, onHide, addQuestion, newQuestion}) => {
     const [uploadQuestion, setUploadQuestion] = useState({})
     const [fileD, setFileD] = useState(false)
@@ -42,9 +42,9 @@ const AddAssQuestion = ({compiler , assId, show, onHide, addQuestion, newQuestio
                         }      
                         else {
                             setUploadQuestion({})
-                            
-                            addQuestion()
                             onHide()
+                            addQuestion()
+                            
                         }
                     }
     }

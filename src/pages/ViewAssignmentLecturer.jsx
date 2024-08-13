@@ -57,7 +57,7 @@ const ViewAssignment = () => {
                         </div>
                     </Col>
                     <Col xs={12} md={6} >
-                        <InputGroup>
+                    <InputGroup>
                         <InputGroup.Text>
                         <FaSearch />
                         </InputGroup.Text>

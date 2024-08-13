@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Accordion, Button, Card, Container, Row } from "react-bootstrap"
+import { Accordion, Button, Card, Container, Row, Popover, OverlayTrigger } from "react-bootstrap"
 import { BiSolidEditAlt } from "react-icons/bi"
 import { BsCheck2Circle, BsClock, BsFileArrowDown, BsGithub, BsPostage } from "react-icons/bs"
 import { MdCalendarToday } from "react-icons/md"
@@ -11,6 +11,12 @@ import { LecturerContext } from "../context/lecturerContext"
 import { getFromBackend } from "../utils/backendCalls"
 import { token } from "../utils/config"
 import { getToken } from "../utils/localstorage"
+import { CgOptions } from "react-icons/cg"
+import { FaPlus } from "react-icons/fa"
+import { AddAssQuestion } from "../components/addAssQuestion"
+import { CongratulationsAssignment } from "../components/congratualationAss"
+import { CongratsQuestion } from "../components/task/addTaskCongrats"
+import { AddClass } from "../components/assignment/addClass"
 
 const AssignmentDetailPage = () => {
 
@@ -19,6 +25,10 @@ const AssignmentDetailPage = () => {
     const [loadingDetail, setLoadingDetail] = useState(true)
     const [ass, setASs] = useState({})
     const {assId, status} = useParams()
+    const [showAddQ, setShowAddQ] = useState(false)
+    const [congrats, showCongrats] = useState(false)
+    const [showAddClass, setAddClass] = useState(false)
+    const [another, setAnother] = useState('')
     const {loadAssignment, setAssignment, assignment,loadDetails, authenticated, setAuthenticated, lecturer, setLecturer} = useContext(LecturerContext)
   
     useEffect(()=> {
@@ -40,6 +50,30 @@ const AssignmentDetailPage = () => {
         let dif = second.getTime() - first.getTime()
         return Math.round(dif / (24 * 60 * 60 * 1000))
     }
+
+    const PopAssignment = ({id, status}) => {
+        return (
+            <div  className="container p-3 text-muted rounded-2 ">
+                <div className="align-items-center justify-content-start">
+                <div>
+                 <Button onClick={() => setShowAddQ(true)} style={{textDecoration:"none"}} variant="link" className="p-0 text-muted mb-2"><span ><FaPlus className="me-3" />Add Question</span></Button>
+                </div>
+                </div>
+    
+                <div className="align-items-center justify-content-start">
+                <div>
+                <Button onClick={() => setAddClass(true)} style={{textDecoration:"none"}} variant="link" className="p-0 mt-0 text-muted mb-2"><span ><FaPlus className="me-3" />Add Class </span></Button>
+                </div>
+                </div>
+               
+            </div>
+        )
+    }
+    
+    const trigger = <Popover>
+                        <PopAssignment id={ass.id} status={ass.status}/>
+                    </Popover>
+    
     return (
         <>
         {(loading || loadingDetail) ? <Loading /> : 
@@ -47,6 +81,9 @@ const AssignmentDetailPage = () => {
         <LecturerNavbar />
         <div className="w-100 min-vh-100">
         <Container>
+            <AddClass assId={assId} show={showAddClass} onHide={() => setAddClass(false)} />
+            <AddAssQuestion addQuestion={()=> {showCongrats(true)}} compiler={ass.Compiler} assId={assId} show={showAddQ} onHide={() => {setShowAddQ(false)}} />
+            <CongratsQuestion show={congrats} onHide={() => showCongrats(false)} />
             <Row>
             <div className="border-bottom mb-4 pt-5">
             <h4 style={{fontWeight:"bolder"}} className=" mb-3 mt-2">{ass.title }</h4>
@@ -58,7 +95,14 @@ const AssignmentDetailPage = () => {
                 </div>
                 <Container className="my-4">
                 <Card className="p-5 shadow-lg text-muted">
+                    <div className="d-flex justify-content-between">
                     <h5  style={{fontWeight:"bold"}} className="text-dark">Basic Info</h5>
+                    <OverlayTrigger overlay={trigger} delay={"10"} trigger={"click"}>
+                    <div  className="p-2 rounded-circle bg-body shadow-lg">
+                        <CgOptions  size={"20px"}/> 
+                    </div>
+                    </OverlayTrigger>
+                    </div>
                     {"</>"} {ass.Compiler.name}
                     <div className="my-1 d-flex align-items-center">
                     <MdCalendarToday className="me-2"/>  {new Date(ass.startDate).toDateString()} - {new Date(ass.endDate).toDateString()}

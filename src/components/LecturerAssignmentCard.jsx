@@ -1,7 +1,7 @@
 import { Button, Card, Col, OverlayTrigger, Popover } from "react-bootstrap"
 import { BiCalendar } from "react-icons/bi"
 import { CgOptions } from "react-icons/cg"
-import { FaChartBar, FaEdit, FaEye } from "react-icons/fa"
+import { FaCalculator, FaChartBar, FaEdit, FaEye } from "react-icons/fa"
 import { FiDelete } from "react-icons/fi"
 import { LiaForumbee } from "react-icons/lia"
 import { MdScore } from "react-icons/md"
@@ -12,7 +12,13 @@ const PopAssignment = ({id, status}) => {
         <div  className="container p-3 text-muted rounded-2 ">
             <div className="align-items-center justify-content-start">
             <div>
-             <Button href={`/assignment-detail/${id}/${status}`} style={{textDecoration:"none"}} variant="link" className="p-0 text-muted mb-2"><span ><FaEye  className="me-3" />View</span></Button>
+             <Button href={`/assignment-detail/${id}/${status}`} style={{textDecoration:"none"}} variant="link" className="p-0 text-muted mb-2"><span ><FaEye  className="me-3" />Details</span></Button>
+            </div>
+            </div>
+
+            <div className="align-items-center justify-content-start">
+            <div>
+            <Button href={`/lecturer/submission/${id}`} style={{textDecoration:"none"}} variant="link" className="p-0 mt-0 text-muted mb-2"><span ><FaCalculator className="me-3" />Submission </span></Button>
             </div>
             </div>
 
@@ -37,13 +43,9 @@ const PopAssignment = ({id, status}) => {
 
             <div className="align-items-center justify-content-start">
             <div>
-            <Button style={{textDecoration:"none"}} variant="link" className="mb-2 p-0 mt-0 text-muted"><span > <MdScore className="me-3"/> Generate Result</span></Button>
-            </div>
-            </div>
-
-            <div className="align-items-center justify-content-start">
-            <div>
-            <Button style={{textDecoration:"none"}} variant="link" className="mb-2 p-0 mt-0 text-muted "><span ><FiDelete className="me-3" />Delete Assignment</span></Button>
+            <Button onClick={() => {
+                
+            }} style={{textDecoration:"none"}} variant="link" className="mb-2 p-0 mt-0 text-muted "><span ><FiDelete className="me-3" />Delete Assignment</span></Button>
 
             </div>
             </div>

@@ -20,6 +20,8 @@ import { StudentRegistrationPage } from './pages/studentRegistration'
 import { AssignmentDetailPage } from './pages/viewAssignmentDetails'
 import { EditAssignment } from './pages/editAssignment'
 import { AssignmentReport } from './pages/AssignmentReportPage'
+import { ViewSubmissionPage } from './pages/ViewSubmissionPage'
+import { Forum } from './pages/forum'
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
       <Route path='/assignment-detail/:assId/:status' element={<AssignmentDetailPage />} />
       <Route path='/lecturer/edit-assignment/:assId' element = {<EditAssignment />} />
       <Route path='/lecturer/report-assignment/:assId' element = {<AssignmentReport />} />
+      <Route path='/lecturer/submission/:assId' element={<ViewSubmissionPage />} />
+      <Route path='/forum/:assId' element={<Forum />} />
     </Routes>
     </>
   )
